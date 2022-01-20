@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewcontroller.BikePropertiesC">
+   <children>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
+         <children>
+            <Label alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="80.0" text="RahmenNr.:" />
+            <TextField fx:id="tfFrameNr" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="80.0" text="Marke / Type:" />
+            <TextField fx:id="tfBrandType" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="80.0" text="Farbe:" />
+            <TextField fx:id="tfColor" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
+         <children>
+            <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="btnSelect" mnemonicParsing="false" text="Select" />
+            <Button fx:id="btnSave" mnemonicParsing="false" text="Save" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
