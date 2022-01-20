@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewcontroller.BikePropertiesC">
+<VBox prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewcontroller.BikesC">
    <children>
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
          <children>
@@ -28,9 +28,9 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
          <children>
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel" />
-            <Button fx:id="btnSelect" mnemonicParsing="false" text="Select" />
-            <Button fx:id="btnSave" mnemonicParsing="false" text="Save" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#action_cancel" text="Cancel" />
+            <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#action_select" text="Select" />
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#action_save" text="Save" />
          </children>
       </HBox>
    </children>

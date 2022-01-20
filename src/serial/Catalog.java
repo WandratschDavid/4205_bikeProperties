@@ -1,5 +1,7 @@
 package serial;
 
+import model.Bike;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +13,6 @@ import java.util.List;
 public class Catalog
 {
     private List<Serializable> objects;
-
     private static Catalog instance;
 
     /**
@@ -40,6 +41,7 @@ public class Catalog
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("catalog.ser")))
         {
             oos.writeObject(objects);
+            System.out.println("Database saved successfully!");
         }
         catch (IOException e)
         {
@@ -57,14 +59,7 @@ public class Catalog
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("catalog.ser")))
         {
             objects = (List<Serializable>) ois.readObject();
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("No Catalog found! Nothing to restore!");
-        }
-        catch (InvalidClassException e)
-        {
-            System.out.println("Catalog contains class description of different version! Nothing to restore!");
+            System.out.println("Database restored successfully!");
         }
         catch (ClassNotFoundException e)
         {
@@ -81,9 +76,24 @@ public class Catalog
      * Alle Subscription-Objekte selektieren.
      * @return Liste aller Subscriptions
      */
-    public void selectBikeByFrameNr(String frameNr)
+    public Bike selectBikeByFrameNr(String frameNr)
     {
+        Bike bike;
 
+        for (Object object:objects)
+        {
+            bike = (Bike) object;
+
+            if (bike.getFrameNr().equals(frameNr))
+            {
+                System.out.printf("Bike with frameNr: %s found!%n", frameNr);
+
+                return bike;
+            }
+        }
+        System.out.printf("There is no Bike with frameNr: %s stored!%n", frameNr);
+
+        return null;
     }
 
     /**
@@ -93,7 +103,6 @@ public class Catalog
      */
     public void save(Serializable serializable)
     {
-        // In der Liste aller Objekte updaten oder inserten
         objects.remove(serializable);
         objects.add(serializable);
     }

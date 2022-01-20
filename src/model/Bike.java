@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import serial.Catalog;
@@ -12,8 +13,58 @@ public class Bike implements Externalizable
     StringProperty brandType = new SimpleStringProperty();
     StringProperty color = new SimpleStringProperty();
 
-    Catalog catalog;
+    private final BooleanBinding btnSelectEnabled = frameNr.isNotEmpty().and(frameNr.length().greaterThanOrEqualTo(5));
+    private final BooleanBinding btnSaveEnabled = (frameNr.isNotEmpty().and(frameNr.length().greaterThanOrEqualTo(5)))
+            .and(brandType.isNotEmpty().and(brandType.length().greaterThanOrEqualTo(3)));
+    private final BooleanBinding tfEnabled = (frameNr.isNotEmpty().and(frameNr.length().greaterThanOrEqualTo(5)))
+            .and(brandType.isNotEmpty().and(brandType.length().greaterThanOrEqualTo(3)));
 
+
+    private Catalog catalog;
+
+    public Bike()
+    {
+        if (frameNr.getValue() == null)
+        {
+            frameNr.setValue(" ");
+        }
+        if (brandType.getValue() == null)
+        {
+            brandType.setValue(" ");
+        }
+    }
+
+    public static Bike select(String frameNr)
+    {
+        return Catalog.getInstance().selectBikeByFrameNr(frameNr);
+    }
+
+    public void save()
+    {
+        catalog.getInstance().save(this);
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException
+    {
+        out.writeObject(frameNr.get());
+        out.writeObject(brandType.get());
+        out.writeObject(color.get());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
+    {
+        frameNr.setValue((String)in.readObject());
+        brandType.setValue((String)in.readObject());
+        color.setValue((String)in.readObject());
+
+        System.out.println(frameNr.getValue());
+        System.out.println(brandType.getValue());
+        System.out.println(color.getValue());
+    }
+
+    //Generated Methods
     public String getFrameNr() {
         return frameNr.get();
     }
@@ -50,35 +101,15 @@ public class Bike implements Externalizable
         this.color.set(color);
     }
 
-
-    public static Bike select(String rahmenNr)
-    {
-        // return one Object Bike
-        return null;
+    public BooleanBinding btnSaveEnabledProperty() {
+        return btnSaveEnabled;
     }
 
-    public void save()
-    {
-        catalog.getInstance().save(this);
+    public BooleanBinding btnSelectEnabledProperty() {
+        return btnSelectEnabled;
     }
 
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException
-    {
-        out.writeObject(frameNr.get());
-        out.writeObject(brandType.get());
-        out.writeObject(color.get());
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
-    {
-        frameNr.setValue((String)in.readObject());
-        brandType.setValue((String)in.readObject());
-        color.setValue((String)in.readObject());
-
-        System.out.println(frameNr.getValue());
-        System.out.println(brandType.getValue());
-        System.out.println(color.getValue());
+    public BooleanBinding tfEnabledProperty() {
+        return tfEnabled;
     }
 }

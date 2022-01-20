@@ -3,20 +3,20 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import serial.Catalog;
-import viewcontroller.BikePropertiesC;
+import viewcontroller.BikesC;
 
 public class TheMain extends Application
 {
     @Override
-    public void init()
+    public void start(Stage stage)
     {
-        Catalog.getInstance().restore();
+        BikesC.show(stage);
     }
 
     @Override
-    public void start(Stage stage) throws Exception
+    public void init()
     {
-        BikePropertiesC.show(stage);
+        Catalog.getInstance().restore();
     }
 
     @Override
